@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>精灵表诊断</title>
+<style>body{font-family:monospace;background:#111;color:#0f0;padding:20px}table{border-collapse:collapse}td,th{border:1px solid #333;padding:4px 8px}th{background:#222}</style>
+</head><body><h2>精灵表尺寸诊断</h2><table id="t"><tr><th>文件</th><th>宽</th><th>高</th><th>fw(8列)</th><th>fh(8行)</th><th>建议fps</th></tr></table>
+<script>
+const files=[
+'images/wenzi1_spritesheet.png','images/wenzi2_spritesheet.png','images/wenzi3_spritesheet.png','images/wenzi4_spritesheet.png','images/wenzi5_spritesheet.png',
+'images/jingui1_spritesheet.png','images/jingui2_spritesheet.png','images/jingui3_spritesheet.png','images/jingui4_spritesheet.png','images/jingui5_spritesheet.png',
+'images/fjg1_spritesheet.png','images/fjg2_spritesheet.png','images/fjg3_spritesheet.png','images/fjg4_spritesheet.png','images/fjg5_spritesheet.png',
+'images/jia1_spritesheet.png','images/jia2_spritesheet.png','images/jia3_spritesheet.png','images/jia4_spritesheet.png','images/jia5_spritesheet.png',
+'images/piao1_spritesheet.png','images/piao2_spritesheet.png','images/piao3_spritesheet.png','images/piao4_spritesheet.png','images/piao5_spritesheet.png',
+'images/gudao1_spritesheet.png','images/gudao2_spritesheet.png','images/gudao3_spritesheet.png','images/gudao4_spritesheet.png','images/gudao5_spritesheet.png',
+'images/ying1_spritesheet.png','images/ying2_spritesheet.png','images/ying3_spritesheet.png','images/ying4_spritesheet.png','images/ying5_spritesheet.png',
+'images/ding1_spritesheet.png','images/ding2_spritesheet.png','images/ding3_spritesheet.png','images/ding4_spritesheet.png','images/ding5_spritesheet.png',
+'images/die1_spritesheet.png','images/die2_spritesheet.png','images/die3_spritesheet.png','images/die4_spritesheet.png','images/die5_spritesheet.png',
+'images/testball_spritesheet.png','images/bullet_spritesheet.png'
+];
+const t=document.getElementById('t');
+let done=0;
+files.forEach(src=>{
+  const img=new Image();
+  img.onload=()=>{
+    const fw=Math.floor(img.naturalWidth/8), fh=Math.floor(img.naturalHeight/8);
+    const tr=t.insertRow(-1);
+    tr.innerHTML=`<td>${src.replace('images/','')}</td><td>${img.naturalWidth}</td><td>${img.naturalHeight}</td><td>${fw}</td><td>${fh}</td><td>12</td>`;
+    done++;if(done===files.length)document.title='诊断完成 '+done+'个文件';
+  };
+  img.onerror=()=>{
+    const tr=t.insertRow(-1);
+    tr.innerHTML=`<td style="color:red">${src.replace('images/','')}</td><td colspan="5">加载失败</td>`;
+    done++;
+  };
+  img.src=src;
+});
+</script></body></html>
